@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お品書き | 銀座聖藍 - 完全予約制の隠れ家鮨</title>
+    <meta name="description" content="銀座聖藍のお品書き。四季折々の旬の魚介を厳選し、熟成や丁寧な仕込みによって素材の旨味を極限まで引き出した江戸前鮨をご堪能ください。">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Shippori+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #FDFCF9;
+            --text-color: #333333;
+            --border-color: #E0DCD3;
+            --accent-gold: #B89947;
+            --font-ja: 'Shippori Mincho', serif;
+            --font-en: 'Cormorant Garamond', serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-ja);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 2.4;
+            letter-spacing: 0.1em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            opacity: 0;
+        }
+        img { max-width: 100%; height: auto; vertical-align: bottom; }
+        a { color: inherit; text-decoration: none; transition: opacity 0.3s ease; }
+        a:hover { opacity: 0.6; }
+        ul { list-style: none; }
+        .en-text { font-family: var(--font-en); letter-spacing: 0.15em; }
+        .container { width: 90vw; max-width: 1000px; margin: 0 auto; }
+        .section-padding { padding: clamp(6rem, 12vw, 10rem) 0; }
+        .fade-element { opacity: 0; transform: translateY(20px); }
+
+        /* Header (共通) */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 1.5rem 4vw; display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; background-color: rgba(253, 252, 249, 0); transition: background-color 0.5s ease, padding 0.5s ease;
+        }
+        header.scrolled {
+            background-color: rgba(253, 252, 249, 0.95); backdrop-filter: blur(8px);
+            padding: 1rem 4vw; border-bottom: 1px solid var(--border-color);
+        }
+        .logo { font-size: 1.3rem; font-weight: 500; letter-spacing: 0.2em; }
+        .header-nav { display: none; }
+        @media (min-width: 900px) {
+            .header-nav { display: flex; align-items: center; gap: 2.5rem; }
+            .header-nav ul { display: flex; gap: 2rem; }
+            .header-nav a { font-size: 0.9rem; }
+        }
+        .btn-reserve-header {
+            display: inline-block; border: 1px solid var(--text-color); padding: 0.6rem 1.5rem;
+            font-size: 0.85rem; letter-spacing: 0.1em; background-color: transparent; transition: all 0.3s ease;
+        }
+        .btn-reserve-header:hover { background-color: var(--text-color); color: var(--bg-color); opacity: 1; }
+        .pc-only { display: none; }
+        @media (min-width: 900px) { .pc-only { display: flex; } }
+        
+        .hamburger { display: flex; flex-direction: column; justify-content: space-between; width: 32px; height: 20px; cursor: pointer; z-index: 1001; }
+        @media (min-width: 900px) { .hamburger { display: none; } }
+        .hamburger span { display: block; width: 100%; height: 1.5px; background-color: var(--text-color); transition: all 0.3s ease; }
+
+        .mobile-menu {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: rgba(253, 252, 249, 0.98); backdrop-filter: blur(10px);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .mobile-menu.active { opacity: 1; pointer-events: auto; }
+        .menu-close-btn {
+            position: absolute; top: 1.5rem; right: 4vw; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .menu-close-btn::before, .menu-close-btn::after {
+            content: ''; position: absolute; width: 30px; height: 1.5px; background-color: var(--text-color);
+        }
+        .menu-close-btn::before { transform: rotate(45deg); }
+        .menu-close-btn::after { transform: rotate(-45deg); }
+        .mobile-menu ul { text-align: center; }
+        .mobile-menu li { margin-bottom: 2.5rem; }
+        .mobile-menu a { font-size: 1.2rem; letter-spacing: 0.2em; }
+        .mobile-menu .en-sub { display: block; font-family: var(--font-en); font-size: 0.75rem; color: var(--accent-gold); margin-top: 0.5rem; letter-spacing: 0.15em; }
+
+        /* Subpage Hero */
+        .sub-hero {
+            height: 60vh; width: 100%; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; background-color: #111;
+        }
+        .sub-hero-image { position: absolute; top: 0; left: 0; width: 100%; height: 120%; object-fit: cover; filter: brightness(0.6); }
+        .sub-hero-content { position: relative; z-index: 2; color: #fff; }
+        .sub-hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 500; letter-spacing: 0.2em; margin-bottom: 0.5rem; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .sub-hero-subtitle { font-size: 0.9rem; letter-spacing: 0.3em; color: rgba(255,255,255,0.8); }
+
+        /* Menu Content */
+        .menu-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto clamp(5rem, 10vw, 8rem);
+        }
+        .menu-intro-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 2rem;
+            letter-spacing: 0.2em;
+        }
+        .menu-intro-text {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .course-box {
+            border: 1px solid var(--border-color);
+            padding: clamp(3rem, 6vw, 5rem);
+            background-color: #fff;
+            text-align: center;
+            margin-bottom: clamp(6rem, 12vw, 10rem);
+            position: relative;
+        }
+        .course-box::before {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(224, 220, 211, 0.5);
+            pointer-events: none;
+        }
+        .course-title {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        .course-price {
+            font-family: var(--font-en);
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            letter-spacing: 0.1em;
+        }
+        .course-desc {
+            font-size: 0.95rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Menu Details (コース内容リスト) */
+        .menu-details {
+            max-width: 600px;
+            margin: 0 auto clamp(6rem, 12vw, 10rem);
+            text-align: center;
+        }
+        .menu-details-title {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            letter-spacing: 0.2em;
+            margin-bottom: 3rem;
+            color: var(--accent-gold);
+        }
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .menu-list li {
+            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            letter-spacing: 0.3em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .menu-note {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 2;
+        }
+
+        /* Drinks Section */
+        .drinks-section {
+            padding: clamp(4rem, 8vw, 6rem) 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .drinks-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+        .drinks-en-title {
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+            display: block;
+            margin-bottom: 3rem;
+        }
+        .drinks-desc {
+            font-size: 0.95rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Reserve Action (Footer直前) */
+        .bottom-reserve {
+            text-align: center;
+            padding: clamp(5rem, 10vw, 8rem) 0;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+        .bottom-reserve-title {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+            color: var(--bg-color);
+        }
+        .btn-reserve-large {
+            display: inline-block;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 1.2rem 4rem;
+            font-size: 1rem;
+            letter-spacing: 0.2em;
+            transition: opacity 0.3s;
+        }
+        .btn-reserve-large:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer { padding: 4rem 4vw 2rem; background-color: #FAF9F5; text-align: center; }
+        .footer-logo { font-size: 1.5rem; margin-bottom: 1.5rem; display: inline-block; }
+        .footer-info { font-size: 0.9rem; color: #666; margin-bottom: 3rem; }
+        .copyright { font-size: 0.75rem; color: #999; }
+    </style>
+</head>
+<body>
+
+    <!-- ヘッダー -->
+    <header id="header">
+        <a href="index.html" class="logo">銀座聖藍</a>
+        
+        <div class="header-nav pc-only">
+            <ul>
+                <!-- ここです↪ 代表者理念のリンク先（https://～）に変更してください -->
+                <li><a href="philosophy.html">代表者理念</a></li>
+                <!-- 現在のページなので色を変えています -->
+                <li><a href="menu.html" style="color: var(--accent-gold);">お品書き</a></li>
+            </ul>
+            <!-- トップページの予約フォームへ飛ぶリンク -->
+            <a href="index.html#reserve" class="btn-reserve-header">ご予約</a>
+        </div>
+
+        <div class="hamburger" id="js-hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <!-- スマホ用フルスクリーンメニュー -->
+    <nav class="mobile-menu" id="js-mobile-menu">
+        <div class="menu-close-btn" id="js-close-btn"></div>
+        <ul>
+            <!-- ここです↪ 代表者理念のリンク先（https://～）に変更してください -->
+            <li><a href="philosophy.html">代表者理念<span class="en-sub">PHILOSOPHY</span></a></li>
+            <li><a href="menu.html" style="color: var(--accent-gold);">お品書き<span class="en-sub">MENU</span></a></li>
+            <li><a href="index.html#reserve" style="text-decoration: underline; text-underline-offset: 8px;">ご予約<span class="en-sub">RESERVATION</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- 下層ページ用 ヒーローセクション -->
+    <section class="sub-hero">
+        <!-- 背景画像：パララックス対象 -->
+        <!-- ここです↪ お品書きページの背景にふさわしい画像URLに差し替えてください -->
+        <img src="https://images.unsplash.com/photo-1583623025817-d180a2221d0a?q=80&w=2071&auto=format&fit=crop" alt="お品書き 背景" class="sub-hero-image js-parallax">
+        <div class="sub-hero-content fade-element">
+            <h1 class="sub-hero-title">お品書き</h1>
+            <span class="sub-hero-subtitle en-text">MENU</span>
+        </div>
+    </section>
+
+    <section class="section-padding">
+        <div class="container">
+            
+            <!-- イントロダクション -->
+            <div class="menu-intro fade-element">
+                <h2 class="menu-intro-title">その日、最高の食材を。</h2>
+                <p class="menu-intro-text">
+                    銀座聖藍では、決まったお品書きをご用意しておりません。<br>
+                    毎朝市場に赴き、職人の目で選び抜いた旬の魚介のみを仕入れ、<br>
+                    その日の食材が持つポテンシャルを最大限に引き出すための<br>
+                    仕込みや熟成を施し、一番美味しい状態でお客様にご提供いたします。
+                </p>
+            </div>
+
+            <!-- コース料金 -->
+            <div class="course-box fade-element">
+                <h3 class="course-title">おまかせコース</h3>
+                <div class="course-price">&yen; 15,000 <span style="font-size: 0.8rem; font-family: var(--font-ja); color: #888;">(税込)</span></div>
+                <p class="course-desc">
+                    つまみ数品と、江戸前の技を尽くした握りで構成される、<br>
+                    当店が誇る唯一のコースでございます。<br>
+                    心ゆくまで、至高のひとときをお楽しみください。
+                </p>
+            </div>
+
+            <!-- コース内容詳細 -->
+            <div class="menu-details fade-element">
+                <h4 class="menu-details-title">コース内容（一例）</h4>
+                <ul class="menu-list">
+                    <li>先付</li>
+                    <li>お造り</li>
+                    <li>季節の一品</li>
+                    <li>焼き物</li>
+                    <li>握り 十貫</li>
+                    <li>巻物</li>
+                    <li>お椀</li>
+                    <li>甘味</li>
+                </ul>
+                <p class="menu-note">※季節やその日の仕入れ状況により、内容は変更となる場合がございます。<br>あらかじめご了承ください。</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- お飲み物セクション -->
+    <section class="drinks-section fade-element">
+        <div class="container">
+            <h2 class="drinks-title">お飲み物</h2>
+            <span class="drinks-en-title en-text">BEVERAGES</span>
+            <p class="drinks-desc">
+                極上の鮨に寄り添い、味わいをさらに深める銘酒の数々。<br>
+                全国各地から厳選した希少な日本酒をはじめ、<br>
+                シャンパーニュや白ワインなども各種取り揃えております。<br>
+                お客様のお好みや、その日のネタに合わせたペアリングもご提案いたします。
+            </p>
+        </div>
+    </section>
+
+    <!-- ページ下部の予約導線 -->
+    <section class="bottom-reserve fade-element">
+        <div class="container">
+            <h2 class="bottom-reserve-title">特別な時間をご用意して<br>お待ちしております。</h2>
+            <!-- トップページの予約フォームへ飛ぶリンク -->
+            <a href="index.html#reserve" class="btn-reserve-large">ご予約はこちら</a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <a href="index.html" class="footer-logo">銀座聖藍</a>
+        <div class="footer-info">
+            〒104-0061 東京都中央区銀座6丁目9-14 方圓ビル 2階<br>
+            完全予約制 / TEL: 03-3572-6555
+        </div>
+        <p class="copyright en-text">© 2026 GINZA SEIRAN. All Rights Reserved.</p>
+    </footer>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 初期フェードイン
+            gsap.to('body', { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+
+            // ヘッダーのスクロール検知
+            ScrollTrigger.create({
+                start: "top -50",
+                end: 99999,
+                toggleClass: {className: "scrolled", targets: "header"}
+            });
+
+            // ヒーロー背景画像のパララックス
+            gsap.to('.js-parallax', {
+                scrollTrigger: { trigger: ".sub-hero", start: "top top", end: "bottom top", scrub: true },
+                y: "20%", ease: "none"
+            });
+
+            // 各要素のフェードイン
+            const fadeElements = document.querySelectorAll('.fade-element');
+            fadeElements.forEach(el => {
+                gsap.to(el, {
+                    scrollTrigger: { trigger: el, start: "top 85%" },
+                    opacity: 1, y: 0, duration: 1.5, ease: "power2.out"
+                });
+            });
+
+            // ハンバーガーメニュー
+            const hamburger = document.getElementById('js-hamburger');
+            const closeBtn = document.getElementById('js-close-btn');
+            const mobileMenu = document.getElementById('js-mobile-menu');
+            const menuLinks = mobileMenu.querySelectorAll('a');
+
+            hamburger.addEventListener('click', () => { mobileMenu.classList.add('active'); });
+            closeBtn.addEventListener('click', () => { mobileMenu.classList.remove('active'); });
+            menuLinks.forEach(link => { link.addEventListener('click', () => { mobileMenu.classList.remove('active'); }); });
+        });
+    </script>
+</body>
+</html>
