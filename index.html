@@ -36,6 +36,12 @@
             box-sizing: border-box;
         }
 
+        /* アニメーションの定義を追加 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         body {
             font-family: var(--font-ja);
             background-color: var(--bg-color);
@@ -44,7 +50,8 @@
             letter-spacing: 0.1em;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            opacity: 0;
+            /* opacity: 0; を削除し、CSSアニメーションでフェードインさせます */
+            animation: fadeIn 1.5s ease-in-out forwards;
         }
 
         img {
@@ -167,6 +174,7 @@
             }
         }
         
+        /* メニューを開くためのハンバーガー */
         .hamburger {
             display: flex;
             flex-direction: column;
@@ -189,6 +197,7 @@
             transition: all 0.3s ease;
         }
 
+        /* 全画面メニュー本体 */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -210,6 +219,7 @@
             pointer-events: auto;
         }
 
+        /* 新設：メニュー領域内の明示的な「×」ボタン */
         .menu-close-btn {
             position: absolute;
             top: 1.5rem;
@@ -495,17 +505,21 @@
 </head>
 <body>
 
+    <!-- ヘッダー -->
     <header id="header">
         <a href="index.html" class="logo">銀座聖藍</a>
         
         <div class="header-nav pc-only">
             <ul>
+                <!-- ここです↪ 代表者理念のリンク先（https://～）に変更してください -->
                 <li><a href="philosophy.html">代表者理念</a></li>
+                <!-- ここです↪ お品書きのリンク先（https://～）に変更してください -->
                 <li><a href="menu.html">お品書き</a></li>
             </ul>
             <a href="#reserve" class="btn-reserve-header">ご予約</a>
         </div>
 
+        <!-- スマホ用ハンバーガーボタン（開く用） -->
         <div class="hamburger" id="js-hamburger">
             <span></span>
             <span></span>
@@ -513,27 +527,35 @@
         </div>
     </header>
 
+    <!-- スマホ用フルスクリーンメニュー -->
     <nav class="mobile-menu" id="js-mobile-menu">
+        <!-- メニュー領域内の明示的な「×」ボタン -->
         <div class="menu-close-btn" id="js-close-btn"></div>
         
         <ul>
+            <!-- ここです↪ 代表者理念のリンク先（https://～）に変更してください -->
             <li><a href="philosophy.html">代表者理念<span class="en-sub">PHILOSOPHY</span></a></li>
+            <!-- ここです↪ お品書きのリンク先（https://～）に変更してください -->
             <li><a href="menu.html">お品書き<span class="en-sub">MENU</span></a></li>
             <li><a href="#reserve" style="text-decoration: underline; text-underline-offset: 8px;">ご予約<span class="en-sub">RESERVATION</span></a></li>
         </ul>
     </nav>
 
+    <!-- ヒーローセクション -->
     <section class="hero">
         <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop" alt="銀座聖藍" class="hero-image">
     </section>
 
+    <!-- 他ページへのリンクボタン群 -->
     <section class="page-links-section fade-element">
         <div class="container">
             <div class="page-links-grid">
+                <!-- ここです↪ 代表者理念のリンク先（https://～）に変更してください -->
                 <a href="philosophy.html" class="page-link-card">
                     <span class="en-title">PHILOSOPHY</span>
                     <span class="ja-title">代表者理念</span>
                 </a>
+                <!-- ここです↪ お品書きのリンク先（https://～）に変更してください -->
                 <a href="menu.html" class="page-link-card">
                     <span class="en-title">MENU</span>
                     <span class="ja-title">お品書き</span>
@@ -542,6 +564,7 @@
         </div>
     </section>
 
+    <!-- ご案内（値段・席） -->
     <section class="simple-section">
         <div class="container fade-element">
             <div class="section-header">
@@ -562,6 +585,7 @@
         </div>
     </section>
 
+    <!-- アクセス（店舗情報） -->
     <section id="access" class="simple-section">
         <div class="container fade-element">
             <div class="section-header">
@@ -570,7 +594,8 @@
             </div>
             
             <div class="map-wrap">
-                <iframe src="https://maps.google.com/maps?q=東京都中央区銀座6丁目9-14&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- 修正：建物名を外し、住所（東京都中央区銀座6丁目9-14）のみを指定して確実に赤ピンを立てる -->
+                <iframe src="https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%AD%E5%A4%AE%E5%8C%BA%E9%8A%80%E5%BA%A76%E4%B8%81%E7%9B%AE9-14&t=&z=17&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
             <div class="access-details">
@@ -581,6 +606,7 @@
         </div>
     </section>
 
+    <!-- ご予約（フォーム実装） -->
     <section id="reserve" class="reserve-action fade-element">
         <div class="container">
             <div class="section-header">
@@ -592,6 +618,7 @@
                 以下のフォーム、またはお電話にてご予約を承ります。
             </p>
             
+            <!-- 予約フォーム -->
             <div class="form-container">
                 <form action="#" method="POST">
                     <div class="form-group">
@@ -654,15 +681,17 @@
         </div>
     </section>
 
+    <!-- フッター -->
     <footer>
         <a href="index.html" class="footer-logo">銀座聖藍</a>
         <div class="footer-info">
             〒104-0061 東京都中央区銀座6丁目9-14 方圓ビル 2階<br>
             完全予約制 / TEL: 03-3572-6555
         </div>
-        <p class="copyright en-text">© 2026 GINZA SEIRAN. All Rights Reserved.</p>
+        <p class="copyright en-text">&copy; 2026 GINZA SEIRAN. All Rights Reserved.</p>
     </footer>
 
+    <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -670,8 +699,8 @@
         document.addEventListener("DOMContentLoaded", () => {
             gsap.registerPlugin(ScrollTrigger);
 
-            // 初期フェードイン
-            gsap.to('body', { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+            // JSによる初期フェードインはCSSに変更したため削除します
+            // gsap.to('body', { opacity: 1, duration: 1.5, ease: "power2.inOut" });
 
             // ヘッダーのスクロール検知
             ScrollTrigger.create({
@@ -718,26 +747,7 @@
                 });
             });
         });
-    <!-- 前略 -->
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            gsap.registerPlugin(ScrollTrigger);
-
-            // 初期フェードイン
-            gsap.to('body', { opacity: 1, duration: 1.5, ease: "power2.inOut" });
-
-            // ーーー 既存のコードが色々書いてあります ーーー
-
-            // リンクをクリックしたら閉じる
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
-                });
-            });
-        });
-
-        // ▼▼▼ ここに貼り付けます ▼▼▼
         // ページ遷移後にハッシュ（#）がある場合、該当箇所へスムーススクロールする共通処理
         window.addEventListener('load', () => {
             if (window.location.hash) {
@@ -751,11 +761,6 @@
                 }
             }
         });
-        // ▲▲▲ ここまで ▼▲▲
-
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
