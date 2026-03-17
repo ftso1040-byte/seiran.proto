@@ -718,6 +718,44 @@
                 });
             });
         });
+    <!-- 前略 -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // 初期フェードイン
+            gsap.to('body', { opacity: 1, duration: 1.5, ease: "power2.inOut" });
+
+            // ーーー 既存のコードが色々書いてあります ーーー
+
+            // リンクをクリックしたら閉じる
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        });
+
+        // ▼▼▼ ここに貼り付けます ▼▼▼
+        // ページ遷移後にハッシュ（#）がある場合、該当箇所へスムーススクロールする共通処理
+        window.addEventListener('load', () => {
+            if (window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if (target) {
+                    // フェードインが落ち着くのを待ってからスクロール
+                    setTimeout(() => {
+                        const y = target.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: 'smooth' });
+                    }, 500);
+                }
+            }
+        });
+        // ▲▲▲ ここまで ▼▲▲
+
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
